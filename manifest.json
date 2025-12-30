@@ -1,0 +1,21 @@
+{
+    "name": "JanSahayak",
+    "short_name": "JanSahayak",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background_color": "#F5F5F5",
+    "theme_color": "#FF9933",
+    "description": "Offline Government Scheme Helper",
+    "icons": [
+        {
+            "src": "https://placehold.co/192x192/FF9933/ffffff?text=JS",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "https://placehold.co/512x512/FF9933/ffffff?text=JS",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

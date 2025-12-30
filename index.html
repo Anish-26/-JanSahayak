@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JanSahayak - Government Scheme Helper</title>
+    <meta name="description" content="Offline-first guide to Indian Government Schemes for Ration, Pension, Housing.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#FF9933">
+    <!-- Leaflet Map CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="app-header">
+        <div class="logo-area">
+            <span class="logo-icon">🇮🇳</span>
+            <h1 id="app-title">JanSahayak</h1>
+        </div>
+        <select id="language-selector" aria-label="Select Language">
+            <option value="en">English</option>
+            <option value="hi">हिंदी</option>
+            <option value="bn">বাংলা</option>
+        </select>
+    </header>
+
+    <!-- Main Content Area -->
+    <main id="main-container">
+
+        <!-- HOME VIEW -->
+        <section id="home-view" class="view active">
+            <div class="hero">
+                <h2 data-i18n="hero_title">Find Schemes for Your Family</h2>
+                <p data-i18n="hero_subtitle">Simple. Offline. Free.</p>
+            </div>
+
+            <div class="category-grid">
+                <button class="cat-card" onclick="app.showCategory('food')">
+                    <span class="cat-icon">🍚</span>
+                    <span data-i18n="cat_food">Ration</span>
+                </button>
+                <button class="cat-card" onclick="app.showCategory('housing')">
+                    <span class="cat-icon">🏠</span>
+                    <span data-i18n="cat_housing">Housing</span>
+                </button>
+                <button class="cat-card" onclick="app.showCategory('pension')">
+                    <span class="cat-icon">👴</span>
+                    <span data-i18n="cat_pension">Pension</span>
+                </button>
+                <button class="cat-card" onclick="app.showCategory('health')">
+                    <span class="cat-icon">🏥</span>
+                    <span data-i18n="cat_health">Health</span>
+                </button>
+                <button class="cat-card" onclick="app.showCategory('education')">
+                    <span class="cat-icon">🎓</span>
+                    <span data-i18n="cat_education">Education</span>
+                </button>
+                <button class="cat-card special-status-card" onclick="app.showStatus()">
+                    <span class="cat-icon pulse-icon">🔍</span>
+                    <span data-i18n="status_tracker">Track Status</span>
+                </button>
+            </div>
+
+            <div class="csc-banner">
+                <h3 data-i18n="csc_title">Need helps?</h3>
+                <button class="btn-primary" onclick="app.showCSC()">
+                    <span data-i18n="csc_btn">Find Nearest Center</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- CATEGORY LIST VIEW -->
+        <section id="category-view" class="view hidden">
+            <button class="btn-back" onclick="app.showHome()">⬅ <span data-i18n="back">Back</span></button>
+            <h2 id="cat-title">Category Name</h2>
+
+            <div class="scheme-section">
+                <h3 class="section-badge central-badge" data-i18n="header_central">🏛 Central Govt Schemes</h3>
+                <div id="scheme-list-central" class="list-container"></div>
+            </div>
+
+            <div class="scheme-section">
+                <h3 class="section-badge state-badge" data-i18n="header_state">📍 State Govt Schemes</h3>
+                <div id="scheme-list-state" class="list-container"></div>
+            </div>
+        </section>
+
+        <!-- DETAIL VIEW -->
+        <section id="detail-view" class="view hidden">
+            <button class="btn-back" onclick="app.goBackFromDetail()">⬅ <span data-i18n="back">Back</span></button>
+
+            <div class="detail-card">
+                <div class="detail-header">
+                    <span id="detail-icon" class="large-icon"></span>
+                    <h2 id="detail-title">Scheme Title</h2>
+                </div>
+
+                <p id="detail-desc" class="description-text"></p>
+
+                <div class="info-block">
+                    <h3 data-i18n="label_eligibility">✅ Eligibility</h3>
+                    <ul id="detail-eligibility"></ul>
+                </div>
+
+                <div class="info-block">
+                    <h3 data-i18n="label_docs">📄 Documents Needed</h3>
+                    <ul id="detail-docs"></ul>
+                </div>
+
+                <div class="info-block">
+                    <h3 data-i18n="label_steps">🚀 How to Apply</h3>
+                    <ol id="detail-steps"></ol>
+                </div>
+            </div>
+        </section>
+
+        <!-- CSC VIEW -->
+        <section id="csc-view" class="view hidden">
+            <button class="btn-back" onclick="app.showHome()">⬅ <span data-i18n="back">Back</span></button>
+            <h2 data-i18n="csc_locator">CSC Locator</h2>
+            <div class="csc-card">
+                <h3>Village Seva Kendra</h3>
+                <p>📍 Near Gram Panchayat Bhawan</p>
+                <div id="map"></div>
+                <!-- Controls -->
+                <div class="map-controls">
+                    <button id="btn-locate" class="btn-small" onclick="app.initMap()">📍 My Location</button>
+                    <a id="gmaps-link" href="#" target="_blank" class="btn-small btn-secondary">Open Google Maps</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ELIGIBILITY VIEW -->
+        <section id="eligibility-view" class="view hidden">
+            <button class="btn-back" onclick="app.showHome()">⬅ <span data-i18n="back">Back</span></button>
+            <h2 data-i18n="label_eligibility">Check Eligibility</h2>
+
+            <form id="eligibility-form" onsubmit="event.preventDefault(); app.runEligibilityCheck();">
+                <label data-i18n="lbl_state">State</label>
+                <select id="inp_state" required>
+                    <option value="mh">Maharashtra</option>
+                    <option value="wb">West Bengal</option>
+                    <option value="up">Uttar Pradesh</option>
+                </select>
+
+                <label data-i18n="lbl_age">Age</label>
+                <input type="number" id="inp_age" placeholder="e.g. 45" required>
+
+                <label data-i18n="lbl_occupation">Occupation</label>
+                <select id="inp_occupation">
+                    <option value="farmer">Farmer</option>
+                    <option value="labour">Labour</option>
+                    <option value="student">Student</option>
+                    <option value="senior">Senior Citizen</option>
+                    <option value="other">Other</option>
+                </select>
+
+                <label data-i18n="lbl_ration_card">Ration Card Type</label>
+                <select id="inp_ration">
+                    <option value="none">None</option>
+                    <option value="phh">PHH (Priority)</option>
+                    <option value="aay">AAY (Antyodaya)</option>
+                </select>
+
+                <label data-i18n="lbl_income">Annual Income (₹)</label>
+                <input type="number" id="inp_income" placeholder="e.g. 50000">
+
+                <button type="submit" class="btn-primary" data-i18n="btn_submit">Check Now</button>
+            </form>
+
+            <div id="eligibility-results" class="hidden">
+                <h3>Eligible Schemes:</h3>
+                <div id="eligible-list"></div>
+            </div>
+        </section>
+
+        <!-- STATUS TRACKER VIEW -->
+        <section id="status-view" class="view hidden">
+            <button class="btn-back" onclick="app.showHome()">⬅ <span data-i18n="back">Back</span></button>
+            <h2 data-i18n="status_tracker">Track Application</h2>
+
+            <div class="status-card">
+                <p>Enter details to check application status (Demo Only)</p>
+                <input type="tel" id="track_mobile" placeholder="Mobile Number" maxlength="10">
+                <input type="password" id="track_aadhaar" placeholder="Last 4 digits Aadhaar" maxlength="4">
+                <button class="btn-primary" onclick="app.checkStatus()" data-i18n="btn_track">Track Status</button>
+
+                <div id="status-result" class="hidden"
+                    style="margin-top:20px; padding:15px; border-radius:8px; background:#f0f9ff;">
+                    <!-- Result injected here -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Floating Action Button for Eligibility -->
+    <button class="fab-eligibility" onclick="app.showEligibility()">
+        📋 <span data-i18n="btn_check_eligibility">Check Eligibility</span>
+    </button>
+
+    <footer class="app-footer">
+        <p data-i18n="disclaimer_text" style="font-size:0.8rem; color:#666;">Unofficial App. Data for info only.</p>
+        <div class="offline-badge" id="offline-badge">🟢 <span data-i18n="offline_badge">Online</span></div>
+    </footer>
+
+    <!-- Offline Status Toast -->
+    <div id="offline-toast" class="hidden">You are offline. Showing saved data.</div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="eligibilityRules.js"></script>
+    <script src="app.js"></script>
+    <script src="components/chatbot/chatbot.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+                .then(() => console.log('Service Worker Registered'));
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+{
+    "centers": [
+        {
+            "id": "csc_001",
+            "name": "Village Seva Kendra",
+            "type": "CSC",
+            "lat": 20.5987,
+            "lng": 78.9679,
+            "address": "Near Panchayat Bhawan, Ward 4",
+            "phone": "9876543210",
+            "hours": "9:00 AM - 5:00 PM"
+        },
+        {
+            "id": "phc_001",
+            "name": "Primary Health Center",
+            "type": "Health",
+            "lat": 20.6050,
+            "lng": 78.9720,
+            "address": "Main Road, Block A",
+            "phone": "108 (Ambulance)",
+            "hours": "24x7"
+        },
+        {
+            "id": "fps_001",
+            "name": "Ration Shop (FPS)",
+            "type": "Ration",
+            "lat": 20.5900,
+            "lng": 78.9600,
+            "address": "Behind School, Lane 2",
+            "phone": "N/A",
+            "hours": "8:00 AM - 12:00 PM"
+        },
+        {
+            "id": "csc_002",
+            "name": "Digital Seva Center",
+            "type": "CSC",
+            "lat": 20.6100,
+            "lng": 78.9550,
+            "address": "Market Complex, Shop 12",
+            "phone": "9988776655",
+            "hours": "10:00 AM - 6:00 PM"
+        }
+    ]
+}
