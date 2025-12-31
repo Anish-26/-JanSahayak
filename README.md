@@ -1,48 +1,66 @@
-# JanSahayak (জন-সহায়ক)
+#Jan Sahayak(জন-সহায়ক)
 
-**Offline-First Government Scheme Helper for Rural India.**
-*Built for CodeSangram Hackathon.*
+###Project Description
+Jan Sahayak is a simple web app built to help people in rural and underserved parts of India find government welfare schemes they actually qualify for. It’s got a clean, easy-to-use interface that works in multiple languages, so you don’t need to be a techie—or even speak English—to use it. The app asks a few questions about who you are and what you earn, then shows you government programs you can apply for, like food support, housing, or pensions.
 
-## 🚀 How to Run Locally
+##Live Demo: https://anish-26.github.io/-JanSahayak/
 
-Since this app uses Service Workers (for offline support) and fetch API, **it must be served via a local server** (not double-clicking index.html).
+##Problem Statement
+Let’s face it: getting access to government welfare in India is confusing. Here’s why:
+- Information is scattered everywhere. Most people don’t even know what’s available.
+- The rules are written in heavy, bureaucratic language that’s tough to understand.
+- Official websites mostly use English, leaving out huge chunks of the population.
+- On top of that, rural internet is spotty, so online-only sites don’t always work when you need them.
 
-### Method 1 (Using Python - Recommended)
-1. Open a terminal in this folder.
-2. Run:
-   ```bash
-   python -m http.server
-   ```
-3. Open your browser and go to: `http://localhost:8000`
+###Solution Overview
+Jan Sahayak cuts through the mess. It’s designed to work offline, right from the start. Instead of forcing people to scroll through endless government documents, the app just asks a few straightforward questions—your state, age, job, income—and matches your answers to a local database of schemes. Instantly, you get a filtered list of benefits you’re eligible for, with clear steps on how to apply.
 
-### Method 2 (VS Code)
-1. Install "Live Server" extension.
-2. Right click `index.html` > "Open with Live Server".
+##Key Features
+- Super simple interface. Minimal text, lots of icons—easy for anyone to use, even if you’re not comfortable with tech.
+- Multilingual. The app speaks English, Hindi, and Bengali out of the box.
+- Works offline. After the first load, you don’t need an internet connection to keep using it.
+- Smart assistant. The app guides you through eligibility checks with interactive forms and logic.
+- Built-in maps. Quickly find your nearest Common Service Center (CSC) with the integrated map.
 
-## 📱 Features
-- **Offline First**: Works without internet after the first load.
-- **Multilingual**: Supports English, Hindi, and Bengali.
-- **Icon-Driven**: Easy for users with low literacy.
+##User Flow
+1. Pick your language—English, Hindi, or Bengali.
+2. Choose a category (like Ration or Pension) or use the "Check Eligibility" wizard.
+3. Enter your details:
+   - State you live in
+   - Age
+   - Occupation
+   - Income range
+   - Ration card type
+4. The app checks your info against its rules engine.
+5. You get a list of schemes you qualify for, plus what documents you’ll need and how to apply.
 
-## 🛠 Tech Stack
-- **Frontend**: HTML5, CSS3, Vanilla JavaScript.
-- **Data**: JSON (Local).
-- **Offline**: Service Workers + PWA Manifest.
+##Scope and Limitations
+- Data source: Right now, the app uses a static JSON database for demo purposes. It’s not linked to any live government systems yet.
+- Eligibility logic: It covers the basics but doesn’t catch every edge case from official rules.
+- Geography: Only includes a few states so far—Maharashtra, West Bengal, and Uttar Pradesh.
+- Input validation: The app trusts whatever you enter; it doesn’t verify your details.
 
-## 📂 Project Structure
-```
-/JanSahayak
-  ├── index.html       # Main UI Shell
-  ├── app.js           # Logic (Routing, Data, i18n)
-  ├── style.css        # Simple, high-contrast styles
-  ├── sw.js            # Service Worker (Offline Cache)
-  └── data/
-      └── schemes.json # The Scheme Database
-```
+##Tech Stack
+- Frontend: HTML5, CSS3, and plain JavaScript.
+- Data storage: Local JSON files.
+- Mapping: Leaflet.js (with OpenStreetMap).
+- Offline support: Service Workers and a Web App Manifest.
+- Hosting: GitHub Pages.
 
-## 🤝 Social Impact
-This app bridges the digital divide by removing language barriers and internet dependency for accessing critical rights.
-## 👨‍💻 Checkout the Website 
-https://anish-26.github.io/-JanSahayak/
+##Future Enhancements
+- Voice interface: Let users interact by speaking, which helps if they can’t read or write.
+- Expanded database: Add schemes from every Indian state.
+- Official integration: Connect to government APIs for real-time updates and status tracking.
+- Community features: Allow users to provide feedback or flag issues at local centers.
 
+##How to Run Locally
 
+Since Jan Sahayak uses Service Workers, you can’t just open index.html directly; it needs to run on a local server.
+
+###Method 1: VS Code (Recommended)
+1. Install the “Live Server” extension.
+2. Right-click index.html and pick “Open with Live Server.”
+
+###Method 2: Python
+1. In your project folder, run python -m http.server.
+2. Open http://localhost:8000 in your web browser.
