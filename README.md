@@ -1,4 +1,4 @@
-# Jan Sahayak(জন-সহায়ক)
+# Jan Sahayak (জন-সহায়ক)
 
 ### Project Description
 Jan Sahayak is a simple web app built to help people in rural and underserved parts of India find government welfare schemes they actually qualify for. It’s got a clean, easy-to-use interface that works in multiple languages, so you don’t need to be a techie—or even speak English—to use it. The app asks a few questions about who you are and what you earn, then shows you government programs you can apply for, like food support, housing, or pensions.
@@ -64,4 +64,5 @@ Since Jan Sahayak uses Service Workers, you can’t just open index.html directl
 ### Method 2: Python
 1. In your project folder, run python -m http.server.
 2. Open http://localhost:8000 in your web browser.
+
 
