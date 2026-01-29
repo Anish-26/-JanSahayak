@@ -1,9 +1,9 @@
 # Jan Sahayak
-
+**[Live Demo](https://anish-26.github.io/-JanSahayak/)**
 ## Project Description
 Jan Sahayak is a web-based application designed to assist citizens in rural and underserved areas of India in identifying government welfare schemes for which they are eligible. The platform provides a simplified, multilingual interface that screens users based on demographic and economic criteria to suggest relevant schemes such as food security, housing, and pensions.
 
-**[Live Demo](https://anish-26.github.io/-JanSahayak/)**
+
 
 ## Problem Statement
 Accessing government welfare schemes in India is often complicated by:
@@ -64,3 +64,4 @@ Since this app uses Service Workers, it must be served via a local web server (n
 **Method 2: Python**
 1.  Run `python -m http.server` in the project directory.
 2.  Open `http://localhost:8000` in your browser.
+
